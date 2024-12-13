@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key.Companion.Home
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -170,12 +171,13 @@ fun ProfileScreen(navController: NavController){
                         modifier = Modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(LittleLemonColor.yellow),
                         onClick = {
-                            navController.navigate(HomeScreen.route)
                             with(sharedPref.edit()) {
                                 putString(com.example.littlelemon.common.Constants.firstName, "")
                                 putString(com.example.littlelemon.common.Constants.lastName, "")
                                 putString(com.example.littlelemon.common.Constants.email, "")
                             }.commit()
+                            navController.popBackStack(HomeScreen.route,true)
+                            navController.navigate(Onboarding.route)
                         }
                     ) {
                         Text(
